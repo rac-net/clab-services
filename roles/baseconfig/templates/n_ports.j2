@@ -1,0 +1,43 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf" xmlns:nokia-attr="urn:nokia.com:sros:ns:yang:sr:attributes">
+{% for port in ports %}
+      <port>
+          <port-id>{{port.name}}</port-id>
+          <admin-state>enable</admin-state>
+          <connector>
+              <breakout>c1-10g</breakout>
+          </connector>
+      </port>
+      <port>
+          <port-id>{{port.name}}/1</port-id>
+          <admin-state>enable</admin-state>
+          <ethernet>
+{% if port.access %}
+            <mode>access</mode>
+{% else %}
+            <mode>network</mode>
+{% endif %}
+            <encap-type>dot1q</encap-type>
+            <mtu>{{mtu}}</mtu>
+            <lldp>
+                <dest-mac>
+                    <mac-type>nearest-bridge</mac-type>
+                    <receive>true</receive>
+                    <transmit>true</transmit>
+                    <tx-tlvs>
+                        <port-desc>true</port-desc>
+                        <sys-name>true</sys-name>
+                        <sys-desc>true</sys-desc>
+                        <sys-cap>true</sys-cap>
+                    </tx-tlvs>
+                    <tx-mgmt-address>
+                        <mgmt-address-system-type>system</mgmt-address-system-type>
+                        <admin-state>enable</admin-state>
+                    </tx-mgmt-address>
+                </dest-mac>
+            </lldp>
+          </ethernet>
+      </port> 
+{% endfor %} 
+    </configure>
+</config>  

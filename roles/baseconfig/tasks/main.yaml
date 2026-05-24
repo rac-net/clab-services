@@ -1,0 +1,8 @@
+---
+- name: Cisco Base Config
+  import_tasks: cisco.yaml
+  when: inventory_hostname in groups["cisco"]
+  
+- name: Nokia Base Config
+  import_tasks: nokia.yaml
+  when: inventory_hostname in groups["nokia"]

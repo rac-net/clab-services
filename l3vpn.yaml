@@ -1,0 +1,20 @@
+---
+- hosts: pe
+  strategy: free
+  
+  connection: ansible.netcommon.netconf
+  gather_facts: No
+
+  vars_files: 
+    - l3vpn
+
+  tasks: 
+  - name: l3vpn
+    include_role:
+       name: l3vpn
+    when: inventory_hostname in item.name
+    loop: "{{l3vpn.PE}}"
+
+
+    
+       

@@ -1,0 +1,11 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+ <hostname xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-hostname-cfg">
+  <system-network-name>{{inventory_hostname}}</system-network-name>
+ </hostname>
+ <segment-routing xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-segment-routing-cfg">
+  <global-block>
+   <lower-bound>100000</lower-bound>
+   <upper-bound>100999</upper-bound>
+  </global-block>
+ </segment-routing>
+</config>

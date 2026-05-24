@@ -1,0 +1,51 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+ <router xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-router-bgp-cfg">
+   <bgp>
+    <as>
+     <as-number>{{bgp.as}}</as-number>
+     <bgp>
+      <router-id>{{sys.address}}</router-id>
+     </bgp>
+     <address-families>
+      <address-family>
+       <af-name>vpnv4-unicast</af-name>
+      </address-family>
+      <address-family>
+      <af-name>l2vpn-vpls-vpws</af-name>
+      </address-family>
+      <address-family>
+       <af-name>l2vpn-evpn</af-name>
+      </address-family>
+     </address-families>
+     <neighbor-groups>
+      <neighbor-group>
+       <neighbor-group-name>ibgp</neighbor-group-name>
+       <remote-as>{{bgp.as}}</remote-as>
+       <update-source>Loopback0</update-source>
+       <address-families>
+        <address-family>
+         <af-name>vpnv4-unicast</af-name>
+        </address-family>
+        <address-family>
+        <af-name>l2vpn-vpls-vpws</af-name>
+        </address-family>
+        <address-family>
+         <af-name>l2vpn-evpn</af-name>
+        </address-family>
+       </address-families>
+      </neighbor-group>
+     </neighbor-groups>
+     <neighbors>
+{% for nei in bgp.nei %}
+      <neighbor>
+       <address>{{nei.name}}</address>
+       <use>
+        <neighbor-group>ibgp</neighbor-group>
+       </use>
+      </neighbor>
+{% endfor %}   
+     </neighbors>
+    </as>
+   </bgp>
+  </router>
+</config>  

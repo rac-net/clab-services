@@ -1,0 +1,70 @@
+---
+- name: Base Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_base.j2') }}"
+  tags:
+  - never
+  - ospf
+  - isis
+
+- name: port Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_ports.j2') }}"  
+  tags:
+  - never
+  - ospf
+  - isis
+
+- name: interface Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_interface.j2') }}"
+  tags:
+  - never
+  - ospf
+  - isis
+
+- name: OSPF Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_ospf.j2') }}"
+  tags:
+  - never
+  - ospf
+
+- name: ISIS Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_isis.j2') }}"
+  tags:
+  - never
+  - isis
+
+- name: BGP Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_bgp.j2') }}"
+  tags:
+  - never
+  - ospf
+  - isis

@@ -1,0 +1,37 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+ <interfaces xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg">
+   <interface>
+    <interface-name>Loopback0</interface-name>
+    <description>system</description>
+    <ipv4>
+     <addresses xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg">
+      <address>
+       <address>{{sys.address}}</address>
+       <netmask>255.255.255.255</netmask>
+      </address>
+     </addresses>
+    </ipv4>
+    <shutdown xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="remove"/>
+   </interface>
+   
+{% for intf in net %} 
+   <interface>
+    <interface-name>GigabitEthernet{{intf.int}}</interface-name>
+    <description>{{intf.name}}</description>
+    <mtu>{{mtu}}</mtu>
+    <ipv4>
+     <addresses xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg">
+      <address>
+       <address>{{intf.address}}</address>
+       <netmask>{{intf.mask}}</netmask>
+      </address>
+     </addresses>
+    </ipv4>
+    <lldp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-lldp-cfg">
+     <enable></enable>
+    </lldp>
+    <shutdown xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="remove"/>
+   </interface>
+{% endfor %}
+ </interfaces>
+</config>

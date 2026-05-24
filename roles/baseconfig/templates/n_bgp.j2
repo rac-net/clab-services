@@ -1,0 +1,25 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf" xmlns:nokia-attr="urn:nokia.com:sros:ns:yang:sr:attributes">
+    <router>
+      <router-name>Base</router-name>	
+        <bgp>
+            <group>
+                <group-name>ibgp</group-name>
+                <peer-as>{{bgp.as}}</peer-as>
+                <local-address>{{sys.address}}</local-address>
+                <family>
+                    <vpn-ipv4>true</vpn-ipv4>
+                    <l2-vpn>true</l2-vpn>
+                    <evpn>true</evpn>
+                </family>
+            </group>
+{% for neis in bgp.nei %}
+            <neighbor>
+                <ip-address>{{neis.nei}}</ip-address>
+                <group>ibgp</group>
+            </neighbor>
+{% endfor %}
+        </bgp>
+    </router>
+  </configure>  	
+</config>  	

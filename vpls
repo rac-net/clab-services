@@ -1,0 +1,29 @@
+---
+vpls:
+  name: VPLS
+  id: '200'
+ 
+  PE:
+    - name: SR1
+      interfaces:
+        - vpls_int: 1/1/c3/1
+          vpls_name: "Site1"
+          vpls_vlan: 200
+
+    - name: SR2
+      interfaces:
+        - vpls_int: 1/1/c3/1
+          vpls_name: "Site2"
+          vpls_vlan: 200
+      
+    - name: XR5
+      interfaces:
+        - vpls_int: GigabitEthernet0/0/0/0
+          vpls_name: "Site3"
+          vpls_vlan: 200
+      
+    - name: XR6
+      interfaces:
+        - vpls_int: GigabitEthernet0/0/0/0
+          vpls_name: "Site4"
+          vpls_vlan: 200

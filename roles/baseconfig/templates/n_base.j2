@@ -1,0 +1,22 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf" xmlns:nokia-attr="urn:nokia.com:sros:ns:yang:sr:attributes">
+        <system>
+            <name> {{inventory_hostname}} </name> 
+            <security>    
+                <ssh>
+                   <preserve-key>true</preserve-key>
+                </ssh>     
+            </security>
+        </system>
+        <router>
+            <router-name>Base</router-name>
+            <autonomous-system> {{bgp.as}} </autonomous-system>
+        	 <mpls-labels>
+                <sr-labels>
+                    <start>100000</start>
+                    <end>100999</end>
+                </sr-labels>
+            </mpls-labels>
+        </router>
+    </configure>  
+</config>

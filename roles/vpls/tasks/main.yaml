@@ -1,0 +1,17 @@
+---
+- name: Cisco VPLS Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'c_vpls.j2') }}"
+  when: inventory_hostname in groups["cisco"]
+- name: Nokia VPLS Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_vpls.j2') }}"
+  when: inventory_hostname in groups["nokia"]

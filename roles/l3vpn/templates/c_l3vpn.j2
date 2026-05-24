@@ -1,0 +1,87 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <vrfs xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-vrf-cfg">
+    <vrf>
+     <vrf-name>{{l3vpn.name}}</vrf-name>
+     <address-family>
+      <ipv4>
+       <unicast>
+        <import xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-router-bgp-cfg">
+         <route-target>
+          <two-byte-as-route-targets>
+           <two-byte-as-route-target>
+            <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+            <asn2-index>{{l3vpn.rt}}</asn2-index>
+            <stitching>disable</stitching>
+           </two-byte-as-route-target>
+          </two-byte-as-route-targets>
+         </route-target>
+        </import>
+        <export xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-router-bgp-cfg">
+         <route-target>
+          <two-byte-as-route-targets>
+           <two-byte-as-route-target>
+            <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+            <asn2-index>{{l3vpn.rt}}</asn2-index>
+            <stitching>disable</stitching>
+           </two-byte-as-route-target>
+          </two-byte-as-route-targets>
+         </route-target>
+        </export>
+       </unicast>
+      </ipv4>
+     </address-family>
+    </vrf>
+  </vrfs>
+  <router xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-router-bgp-cfg">
+   <bgp>
+    <as>
+     <as-number>{{bgp.as}}</as-number>
+     <vrfs>
+      <vrf>
+       <vrf-name>{{l3vpn.name}}</vrf-name>
+       <rd>
+        <two-byte-as>
+         <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+         <asn2-index>{{l3vpn.rt}}</asn2-index>
+        </two-byte-as>
+       </rd>
+       <address-families>
+        <address-family>
+         <af-name>ipv4-unicast</af-name>
+         <redistribute>
+          <connected/>
+         </redistribute>
+        </address-family>
+       </address-families>
+      </vrf>
+     </vrfs>
+    </as>
+   </bgp>
+  </router>
+  <interfaces xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-interface-cfg"> 
+{% for intf in item.interfaces %}
+    <interface>
+      <interface-name>{{intf.vpn_int}}</interface-name> 
+      <shutdown xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0" nc:operation="remove"/>
+    </interface>      
+    <interface>
+      <interface-name>{{intf.vpn_int}}.{{intf.vpn_vlan}}</interface-name>
+      <description>{{intf.vpn_name}}</description>
+      <vrf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-vrf-cfg">TEST</vrf>
+      <ipv4>
+       <addresses xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-if-ip-address-cfg">
+        <address>
+         <address>{{intf.vpn_ip}}</address>
+         <netmask>{{intf.vpn_mask}}</netmask>
+        </address>
+       </addresses>
+      </ipv4>
+      <encapsulation xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-l2-ethernet-cfg">
+       <dot1q>
+        <vlan-id>{{intf.vpn_vlan}}</vlan-id>
+       </dot1q>
+      </encapsulation>
+    </interface>
+{% endfor %}  
+  </interfaces>
+</config>

@@ -1,0 +1,4 @@
+ansible_network_os: nokia.sros.md
+ansible_user: admin
+ansible_password: admin
+mtu: 9004

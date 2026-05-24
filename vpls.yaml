@@ -1,0 +1,20 @@
+---
+- hosts: pe
+  strategy: free
+  
+  connection: ansible.netcommon.netconf
+  gather_facts: No
+
+  vars_files: 
+    - vpls
+
+  tasks: 
+  - name: vpls
+    include_role:
+       name: vpls
+    when: inventory_hostname in item.name
+    loop: "{{vpls.PE}}"
+
+
+    
+       

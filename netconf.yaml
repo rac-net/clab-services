@@ -1,0 +1,13 @@
+---
+- name: Netconf Test
+  hosts: routers
+  strategy: free
+
+  connection: ansible.netcommon.netconf
+  gather_facts: No
+
+  roles: 
+  - role: baseconfig
+    tag: Base
+
+             

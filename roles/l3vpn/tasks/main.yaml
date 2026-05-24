@@ -1,0 +1,17 @@
+---
+- name: Cisco L3vpn Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'c_l3vpn.j2') }}"
+  when: inventory_hostname in groups["cisco"]
+- name: Nokia L3vpn Config
+  netconf_config:
+     datastore: candidate
+     commit: yes
+     lock: always
+     format: xml
+     content: "{{ lookup('template', 'n_l3vpn.j2') }}"
+  when: inventory_hostname in groups["nokia"]

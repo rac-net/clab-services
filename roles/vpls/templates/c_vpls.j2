@@ -1,0 +1,60 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <evpn xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-l2vpn-cfg">
+   <evis>
+    <evi>
+     <vpn-id>{{vpls.id}}</vpn-id>
+     <bgp>
+      <rd>
+       <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+       <two-byte-as-assigned-number>{{vpls.id}}</two-byte-as-assigned-number>
+      </rd>
+      <route-target>
+       <import>
+        <two-byte-as-rts>
+         <two-byte-as-rt>
+          <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+          <assigned-number>{{vpls.id}}</assigned-number>
+         </two-byte-as-rt>
+        </two-byte-as-rts>
+       </import>
+       <export>
+        <two-byte-as-rts>
+         <two-byte-as-rt>
+          <two-byte-as-number>{{bgp.as}}</two-byte-as-number>
+          <assigned-number>{{vpls.id}}</assigned-number>
+         </two-byte-as-rt>
+        </two-byte-as-rts>
+       </export>
+      </route-target>
+     </bgp>
+     <advertise-mac/>
+    </evi>
+   </evis>
+  </evpn>
+  <l2vpn xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-l2vpn-cfg">
+    <bridge>
+     <groups>
+      <group>
+       <group-name>{{vpls.name}}</group-name>
+       <bridge-domains>
+        <bridge-domain>
+         <bridge-domain-name>{{vpls.id}}</bridge-domain-name>
+         <interfaces>
+{% for intf in item.interfaces %}
+          <interface>
+           <interface-name>{{intf.vpls_int}}:{{intf.vpls_vlan}}</interface-name>
+          </interface>
+{% endfor %} 
+         </interfaces>
+         <evis>
+          <evi>
+           <vpn-id>{{vpls.id}}</vpn-id>
+          </evi>
+         </evis>
+        </bridge-domain>
+       </bridge-domains>
+      </group>
+     </groups>
+    </bridge>
+  </l2vpn>
+</config>

@@ -1,0 +1,47 @@
+---
+l3vpn:
+  name: TEST
+  rd: '100'
+  rt: '100'
+  nei_as: '65512'
+  
+  PE:
+    - name: SR1
+      interfaces:
+        - vpn_int: 1/1/c3/1
+          vpn_name: "Site1"
+          vpn_ip: 11.0.0.1
+          vpn_mask: 30
+          vpn_vlan: 10
+          vpn_bpg_nei: 11.0.0.2
+        
+  
+    - name: SR2
+      interfaces:
+        - vpn_int: 1/1/c3/1
+          vpn_name: "Site2"
+          vpn_ip: 22.0.0.1    
+          vpn_mask: 30
+          vpn_vlan: 10
+          vpn_bpg_nei: 22.0.0.2
+      
+  
+    - name: XR5
+      interfaces:
+        - vpn_int: GigabitEthernet0/0/0/0
+          vpn_name: "Site3"
+          vpn_ip: 55.0.0.1
+          vpn_mask: 255.255.255.252
+          vpn_vlan: 10
+          vpn_bpg_nei: 55.0.0.2
+      
+  
+    - name: XR6
+      interfaces:
+        - vpn_int: GigabitEthernet0/0/0/0
+          vpn_name: "Site4"
+          vpn_ip: 66.0.0.1
+          vpn_mask: 255.255.255.252
+          vpn_vlan: 10
+          vpn_bpg_nei: 66.0.0.2
+      

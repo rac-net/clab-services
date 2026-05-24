@@ -1,0 +1,27 @@
+all:
+   children:
+      nokia:
+         hosts:
+            SR1:
+            SR2:   
+            SR3:
+      cisco:
+         hosts:
+            XR4:
+            XR5:
+            XR6:
+      ce:
+         hosts:
+            ios1:
+            ios2:
+      routers:
+         children:
+            nokia: 
+            cisco:
+      pe:
+         hosts:
+            SR1:
+            SR2:
+            XR5:
+            XR6:       
+

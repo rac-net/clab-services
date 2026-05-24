@@ -1,0 +1,30 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">	
+  <configure xmlns="urn:nokia.com:sros:ns:yang:sr:conf" xmlns:nokia-attr="urn:nokia.com:sros:ns:yang:sr:attributes">
+    <router>
+      <router-name>Base</router-name>
+        <interface>
+          <interface-name>system</interface-name>
+          <admin-state>enable</admin-state>
+          <ipv4>
+            <primary>
+              <address>{{sys.address}}</address>
+              <prefix-length>32</prefix-length>
+            </primary>
+          </ipv4>
+        </interface>	
+{% for intf in net %}
+        <interface>
+          <interface-name>{{intf.name}}</interface-name>
+          <admin-state>enable</admin-state>
+          <port>{{intf.int}}:{{intf.vlan}}</port>
+          <ipv4>
+            <primary>
+              <address>{{intf.address}}</address>
+              <prefix-length>{{intf.prefix}}</prefix-length>
+            </primary>
+          </ipv4>
+        </interface>
+{% endfor %}
+    </router>	
+  </configure>
+</config>

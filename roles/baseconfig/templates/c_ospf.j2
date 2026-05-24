@@ -1,0 +1,50 @@
+<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+ <router xmlns="http://cisco.com/ns/yang/Cisco-IOS-XR-um-router-ospf-cfg">
+   <ospf>
+    <processes>
+     <process>
+      <process-name>IGP</process-name>
+      <router-id>{{sys.address}}</router-id>
+      <segment-routing>
+       <mpls/>
+       <sr-prefer/>
+      </segment-routing>
+      <areas>
+       <area>
+        <area-id>0</area-id>
+        <fast-reroute>
+         <per-prefix>
+          <enable/>
+          <ti-lfa>
+           <enable/>
+          </ti-lfa>
+         </per-prefix>
+        </fast-reroute>
+        <segment-routing>
+         <mpls/>
+        </segment-routing>
+        <interfaces>
+         <interface>
+          <interface-name>Loopback0</interface-name>
+          <prefix-sid>
+           <index>
+            <sid-index>{{igp.sid}}</sid-index>
+           </index>
+          </prefix-sid>
+         </interface>
+{% for intf in igp.int %}         
+         <interface>
+          <interface-name>GigabitEthernet{{intf.name}}</interface-name>
+          <network>
+           <point-to-point/>
+          </network>
+         </interface>
+{% endfor %}        
+        </interfaces>
+       </area>
+      </areas>
+     </process>
+    </processes>
+   </ospf>  
+ </router>
+</config>
