@@ -17,6 +17,8 @@ Part3 https://www.linkedin.com/pulse/ramp-up-network-automation-part3-vscode-de-
 
 Part4 https://www.linkedin.com/pulse/ramp-up-network-automation-part4-netconf-de-carvalho-e4rte
 
+Part5 https://www.linkedin.com/pulse/ramp-up-network-automation-part4-ansible-roles-tags-de-carvalho-us0je
+
 
 
 You can download the script using:
